@@ -1,0 +1,435 @@
+<html>
+<head>
+	<title>New Beeswarm plus Scatter</title>
+
+
+	<script type="text/javascript" src='d3.min.js' charset="utf-8"></script>
+	<script type="text/javascript" src='d3-scale-chromatic.min.js'></script>
+	<script type="text/javascript" src='lodash.js'></script>
+	<script type="text/javascript" src='hsluv.min.js'></script>
+	<script type="text/javascript" src='jquery-3.1.1.min.js'></script>
+	<script type="text/javascript" src='select2.min.js'></script>
+	<script type="text/javascript" src='functions.js'></script>
+
+	<link rel="stylesheet" type="text/css" href="select2.min.css">
+
+</head>
+
+<style type="text/css">
+
+	/** {
+		border: 1px solid red;
+	}*/
+
+	*{
+	 font-family: sans-serif;
+	}
+
+	body{
+/*			background-color: darkseagreen;
+*/
+	margin: 0;
+	}
+
+
+
+
+	.select2-results__options {
+		font-family: sans-serif;
+		font-weight: 100;
+	}
+
+	.canvas {
+	/*	display: inline-block;
+		width:80%;*/
+	}
+
+	.cont_main {
+		display: flex;
+		flex-direction: column;
+	}
+
+	#controls {
+		width: 20%;
+	}
+
+	.legend {
+		width: 10rem;
+	}
+
+	.legend_item {
+		display: flex;
+		flex-direction: row;
+		font-family: sans-serif;
+		font-weight: lighter;
+		cursor: pointer;
+	}
+
+	.legend_item > svg {
+		flex: 0 0 auto;
+	}
+
+	.main {
+		margin: auto;
+		width: 900;
+	}
+
+	.background {
+		position: absolute;
+	}
+
+	.pnt {
+	    fill: #ad3d8f;
+	    opacity: 1;
+	    stroke:black;
+	    stroke-opacity:0.8;
+	    stroke-width: 1px;
+
+	    cursor: pointer;
+
+	}
+
+	.scat {
+		stroke: black;
+		stroke-width: 1px;
+	}
+
+
+	.tooltip {
+	  background-color: rgba(255, 255, 255, 0.9);
+	  border-radius: 10px;
+	  width: auto;
+	  padding: 0.5em;
+
+	}
+
+
+
+	.tt_main {
+		text-decoration: underline;
+		margin-top: 0.1em;
+		margin-bottom: 0.1em;
+
+	}
+
+	.tt_perc {
+		margin-top: 0.25em;
+		margin-bottom: 0.1em;
+		font-weight: lighter;
+
+
+	}
+
+	.tt_n{
+		margin-top: 1em;
+		margin-bottom: 0.1em;
+		font-weight: lighter;
+
+	}
+
+	.tt_nf, .tt_nm {
+		margin-top: 0.1em;
+		margin-bottom: 0.1em;
+		font-weight: lighter;
+
+	}
+
+	.tt_int {
+		margin-top: 1em;
+		margin-bottom: 0.1em;
+		font-style: italic;
+		font-weight: lighter;
+	}
+
+	/*.tt_nm {
+		margin-top: 0.1em;
+		margin-bottom: 0.1em;
+
+	}*/
+
+	#year_slider {
+		cursor: ew-resize;
+	}
+
+
+	.header{
+		height:6rem;
+		width: 100%;
+
+		background-color: #404258;
+		position:absolute;
+		font-family: Garamond, Times, serif;
+/*		text-transform: uppercase;
+*/		font-weight: 100;
+		letter-spacing: 1.7;
+		font-size: 2.2rem;
+		color: #eeeeee;
+		text-align: center;
+		line-height: 5rem;
+	}
+
+	.head_one{
+		color: rgb(145, 196, 221);
+	}
+
+	.head_two{
+		color: rgb(248, 143, 83);
+	}
+
+	.head_one, .head_two {
+		text-transform: uppercase;
+		font-weight:600;
+	}
+
+
+	.menu{
+		height:10rem;
+		width: 100%;
+		top:4rem;
+		position:absolute;
+		opacity: .8;
+		justify-content: flex-end;
+		display: flex;
+		flex-direction: column;
+
+	}
+
+	#arrow_cont {
+		cursor: pointer;
+	}
+
+
+	.controls_by_cat_container {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		width: 100%;
+	}
+
+	.disp_butt {
+		margin: 10;
+		font: 1.3rem sans-serif;
+		font-weight: lighter;
+		border: 1px solid lightgrey;
+		padding: 5;
+		width: 100%;
+		text-align: center;
+		cursor: pointer;
+
+	}
+
+	.disp_butt:hover {
+		border: 1px solid #769cb4;
+/*		background-color: #d5e4ef;
+*/	}
+
+	.active_butt {
+		background-color: #769cb4
+	}
+
+	.cont_cat {
+		margin: 10;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 12rem;
+	}
+
+	.filt_reset_butt_one, .filt_reset_butt_two, .search_reset_butt, .disc_butt_reset {
+
+		background-color: white;
+		align-self: flex-end;
+		font-family: sans-serif;
+		font-weight: lighter;
+		font-size: 0.9rem;
+		border: 1px solid lightgrey;
+		border-radius: 6px;
+		padding: 2;
+		margin-top: 4;
+		cursor: pointer;
+
+	}
+
+	.filt_reset_butt_one:hover {
+		background-color: #EEEEEE;
+	}
+
+
+	.search_reset_butt:hover {
+		background-color: #EEEEEE;
+	}
+
+	.filt_reset_butt_two:hover {
+		background-color: #EEEEEE;
+	}
+
+	.filt_reset_butt_one:active {
+		position: relative;
+		top: 1px;
+	}
+
+
+	.search_reset_butt:active {
+		position: relative;
+		top: 1px;
+	}
+
+	.filt_reset_butt_two:active {
+		position: relative;
+		top: 1px;
+	}
+
+	.disc_butt_reset:hover {
+		background-color: #EEEEEE;
+
+	}
+
+	.disc_butt_reset:active {
+		position: relative;
+		top: 1px;
+	}
+
+
+	#scat_disp_opts {
+		position: absolute;
+
+	}
+
+	#CI_butt, #circ_small_butt {
+
+		background-color: white;
+		font-family: sans-serif;
+		font-weight: lighter;
+		font-size: 0.9rem;
+		border: 1px solid lightgrey;
+		border-radius: 6px;
+		padding: 2;
+		margin-top: 4;
+		cursor: pointer;
+	}
+
+	#CI_butt:hover {
+		border: 1px solid black;
+	}
+
+	#circ_small_butt:hover {
+		border: 1px solid black;
+	}
+
+
+	#CI_butt:active {
+		position: relative;
+		top:1px;
+	}
+
+	#circ_small_butt:active {
+		position: relative;
+		top:1px;
+	}
+
+
+	.active_scat_butt {
+		background-color: #e179a6
+	}
+
+
+
+</style>
+
+<body>
+
+<div class='cont_main'>
+
+	<div class='top_main'>
+
+		<div class='menu'>
+			<div class='controls_by_cat_container'>
+
+				<div class='cont_cat Journal'>
+					<div value = 'J' class='disp_butt'>Journals</div>
+
+				</div>
+
+				<div class='cont_cat Discipline'>
+					<div value='D' class='disp_butt'>Disciplines</div>
+
+				</div>
+
+				<div class='cont_cat Country'>
+					<div value='C' class='disp_butt'>Countries</div>
+
+				</div>
+
+				<div class='cont_cat Position'>
+					<div value='P' class='disp_butt'>Auth Positions</div>
+
+				</div>
+
+
+			</div>
+
+		</div>
+
+
+		<div class='header'>The <span class='head_one'>Gender</span> <span class='head_two'>Gap</span> in Academic Publishing</div>
+
+		<div class='top_dummy'></div>
+
+
+	</div>
+
+
+<div class='main'>
+
+
+
+<!-- 	<div class='background'>
+		<svg id='background' width="100%" height="700"></svg>
+	</div>
+ -->
+
+
+	<div class='canvas'>
+		<svg id='background' width="100%" height="700">
+
+			<svg id='plot' width="400" height="700"></svg>
+
+			<svg id='line_plot' width="600" height="700"></svg>
+
+		</svg>
+
+	</div>
+
+	<div id='scat_disp_opts'>
+
+		<div id='CI_butt' value='on'>Conf Int</div>
+		<div id='circ_small_butt' value='off'>Small Circles</div>
+
+	</div>
+
+
+</div>
+
+
+
+<div id='controls'>
+
+  <input style='width:80%;' type="range" name="range" class="year_slider" id="year_slider" value="2016" min="2002" max="2030" step="1" >
+
+
+  <div class='legend'>
+  </div>
+
+</div>
+
+
+
+</div>
+
+
+
+
+<script type="text/javascript" src='main.js'></script>
+
+</body>
+</html>
