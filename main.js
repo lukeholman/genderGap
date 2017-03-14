@@ -49,21 +49,10 @@ d3.select('.top_dummy').style('height', function(){
 	return (parseInt(header.style('height')) + parseInt(menu.style('height')))
 })
 
-// var menubox = menu.append('div').style('margin-top', 2*rem)
 
 
-// menubox.append('select').attr('class','menuitem')
+// Loader
 
-// menubox.append('select').attr('class','menuitem')
-
-
-// var object = {
-// 	data: ['option1', 'option2'],
-// 	width: '80%',
-// }
-
-// $('.menuitem').select2(object)
-// $('.menuitem').select2(object)
 
 
 var arrow_container = menu.append('div')
@@ -251,7 +240,7 @@ g_bckg.insert("line", 'svg')
 	.attr("y1", perc_scale(50))
 	.attr("x2", bckg.attr('width'))
 	.attr("y2", perc_scale(50))
-	.attr("stroke-width", 1)
+	.attr("stroke-width", 1.5)
 	.attr("stroke", "#A3A0A6");
 
 
@@ -276,7 +265,7 @@ g_bckg.insert("line", 'svg')
 	.attr("stroke", "#A3A0A6");
 
 g_bckg.insert('text', 'svg')
-	.text('50%')
+	.text('50:50')
 	.attr('y', perc_scale(50))
 	// .attr('x',)
 	.attr('dy', '-0.5em')
@@ -426,9 +415,12 @@ var filtParam2 = filtParams[dispFiltKey[dispMode][1]]
 
 // ASYNC Data Function
 
+
 d3.json('data_no_list_no_dup_disc.json', function(main_data){
 
 
+	d3.select('.loader_cont')
+		.remove();
 
 	// $('.controls_by_cat_container .disp_butt').on('click', function(){
 	// 	console.log('\n jquery j listiner')
@@ -2504,5 +2496,4 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 
 
 // End file callback
-}
-)
+})

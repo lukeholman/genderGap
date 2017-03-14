@@ -246,9 +246,18 @@ function dispDatGenFilt(data, disp){
 
 
 function curv(c,r,t, dec){
-    return _.round(100 * Math.exp(0.5 * r * (t-2000)) / (2 * Math.exp(0.5 * r * (t-2000)) + c),
+
+    var val = _.round(100 * Math.exp(0.5 * r * (t-2000)) / (2 * Math.exp(0.5 * r * (t-2000)) + c),
                     dec
-				)
+                )
+
+    if (r<0 && c <0) {
+        if (val>100) { val = 100;}
+        else if (val<0) {val = 0;}
+        }
+
+
+    return val;
 }
 
 
@@ -278,9 +287,14 @@ function line_dat_gen(curv_dat, yr_max){
 
     var yrs = _.range(2000, (yr_max+1), 1);
 
-    return _.map(yrs, function(y){
+    var line_dat = _.map(yrs, function(y){
         return {year: y, perc: curv(curv_dat['c'], curv_dat['r'], y, 3)}
     })
+
+    console.log('\n Line Dat')
+    console.log(line_dat)
+
+    return line_dat
 
 
 
