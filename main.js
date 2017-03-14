@@ -420,7 +420,7 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 
 
 	d3.select('.loader_cont')
-		.remove();
+		.style('display', 'none');
 
 	// $('.controls_by_cat_container .disp_butt').on('click', function(){
 	// 	console.log('\n jquery j listiner')
@@ -443,58 +443,66 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 
 			dispMode = d3.select(this).attr('value');
 
+			if(dispMode=='J'){
+				d3.select('.loader_cont')
+					.style('display', '');
 
-
-			// d3.selectAll('.controls_by_cat_container .disp_butt')
-			// 	.filter(function(){
-			// 		return d3.select(this).attr('value') == dispMode;
-			// 	})
-			// 	.classed('active_butt', true)
-
-
-			// reset filt params to defaults
-			filtParams = _.cloneDeep(default_filtParams);
-
-			disc = _.clone(default_disc);
-
-
-			filtParam1 = filtParams[dispFiltKey[dispMode][0]]
-
-			filtParam2 = filtParams[dispFiltKey[dispMode][1]]
-
-
-			dat = nestDatGen(main_data);
-			dat_length = dat.length;
-
-			// Filter the data for specific discipline ... else its too large
-			if (dispMode == 'J') {
-				journ_unfilt_dat = _.cloneDeep(dat)
-				dat = getJournDiscSelectDat(journ_unfilt_dat)
-				dat_length = dat.length;
 			}
 
-			console.log('\ndispMode from disp mode change')
-			console.log(dispMode)
+			setTimeout(function(){ // so that loader has time to 'paint'
 
-			console.log('\n dat')
-			console.log(dat)
+				// reset filt params to defaults
+				filtParams = _.cloneDeep(default_filtParams);
 
-			// for when a discipline filter was built for journal mode
-			if(d3.select('.Journal .select2').size() > 0) {
-				$('.disc_filt').select2('destroy').empty().off()
-			}			
-
-			// Empty for when change disp mode and remove event listeners so no double up
-			$('.search').select2('destroy').empty().off()
-			$('.filter_one').select2('destroy').empty().off()								
-			$('.filter_two').select2('destroy').empty().off()
-
-			initButtFiltLoc();
+				disc = _.clone(default_disc);
 
 
-			initFilters()
+				filtParam1 = filtParams[dispFiltKey[dispMode][0]]
 
-			disp()
+				filtParam2 = filtParams[dispFiltKey[dispMode][1]]
+
+
+				dat = nestDatGen(main_data);
+				dat_length = dat.length;
+
+				// Filter the data for specific discipline ... else its too large
+				if (dispMode == 'J') {
+					journ_unfilt_dat = _.cloneDeep(dat)
+					dat = getJournDiscSelectDat(journ_unfilt_dat)
+					dat_length = dat.length;
+				}
+
+				console.log('\ndispMode from disp mode change')
+				console.log(dispMode)
+
+				console.log('\n dat')
+				console.log(dat)
+
+				// for when a discipline filter was built for journal mode
+				if(d3.select('.Journal .select2').size() > 0) {
+					$('.disc_filt').select2('destroy').empty().off()
+				}			
+
+				// Empty for when change disp mode and remove event listeners so no double up
+				$('.search').select2('destroy').empty().off()
+				$('.filter_one').select2('destroy').empty().off()								
+				$('.filter_two').select2('destroy').empty().off()
+
+
+				initButtFiltLoc();
+
+
+				initFilters()
+
+				disp()
+
+				d3.select('.loader_cont')
+					.style('display', 'none');
+
+
+
+			}, 100) // end setTimeout()
+
 
 		});
 
