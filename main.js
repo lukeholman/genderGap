@@ -41,6 +41,7 @@ var menu = d3.select('.menu')
 
 var toggle = 'out'
 
+
 menu.style('top', function(){
 	return header.style('height')
 })
@@ -51,12 +52,43 @@ d3.select('.top_dummy').style('height', function(){
 
 
 
-// Loader
+d3.select('#header_about')
+	.on('click', function(){
+
+		var this_butt = d3.select(this);
+
+		if (this_butt.attr('value')=='closed') {
+			d3.select('.about_cont')
+				.style('visibility', 'visible')
+				.style('top', function(){
+					return (parseInt(header.style('height')))+'px';
+				})
+
+			this_butt.attr('value', 'open');
+		}
+
+		else {
+			d3.select('.about_cont')
+				.style('visibility', 'hidden')
+
+			this_butt.attr('value', 'closed')
+		}
+
+	})
+	.on('mouseover', function(){
+		d3.select(this)
+			.style('color', 'rgb(145, 196, 221)')
+			.style('border-left-color', 'rgb(145, 196, 221)')
+	})
+	.on('mouseout', function(){
+		d3.select(this)
+			.style('color', '')
+			.style('border-left-color', '')
+	})
 
 
 
 var arrow_container = menu.append('div')
-
 	.style('margin-top', 10)
 	.append('svg')
 	.attr('id', 'arrow_cont')
@@ -85,7 +117,6 @@ arrow_container.on('click', function(){
 			menu.transition()
 			.duration(500).ease(d3.easeBackInOut)
 			.style('top', function(){
-				console.log((this.getBoundingClientRect()['top'] - this.getBoundingClientRect()['height'] + d3.select('#arrow_cont').node().getBoundingClientRect()['height'])+'px')
 				return (this.getBoundingClientRect()['top'] - this.getBoundingClientRect()['height'] + d3.select('#arrow_cont').node().getBoundingClientRect()['height'] + window.scrollY)+'px'
 			});
 
@@ -1239,7 +1270,14 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 					// If need interpolated data point for year
 					else {
 						scat_plot.append('circle').classed('scat_inter', true)
-							.attr('r', radius(_.get(d, ['nDat',filtParam1, filtParam2, 0, 'mean_n'])))
+							.attr('r', function(){
+								if (d3.select('#circ_small_butt').attr('value')=='on') {
+									return abs_min_rad;
+								}
+								else {
+									return radius(_.get(d, ['nDat',filtParam1, filtParam2, 0, 'mean_n']));
+								}
+							})
 							.attr('cy', perc_scale(_.filter(line_dat, function(o){
 								return o['year'] == year;
 							})[0]['perc']))
@@ -1967,7 +2005,14 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 
 						this_scat.selectAll('.scat_inter')
 							.transition('scat_inter_move').duration(1000)
-							.attr('r', radius(_.get(el_dat, ['nDat',filtParam1, filtParam2, 0, 'mean_n'])))
+							.attr('r', function(){
+								if (d3.select('#circ_small_butt').attr('value')=='on') {
+									return abs_min_rad;
+								}
+								else {
+									return radius(_.get(el_dat, ['nDat',filtParam1, filtParam2, 0, 'mean_n']));
+								}
+							})
 							.attr('cy', perc_scale(_.filter(line_dat, function(o){
 								return o['year'] == year;
 							})[0]['perc']))
@@ -1980,7 +2025,14 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 
 						this_scat.append('circle').classed('scat_inter', true)
 							.style('opacity', 1e-6)
-							.attr('r', radius(_.get(el_dat, ['nDat',filtParam1, filtParam2, 0, 'mean_n'])))
+							.attr('r', function(){
+								if (d3.select('#circ_small_butt').attr('value')=='on') {
+									return abs_min_rad;
+								}
+								else {
+									return radius(_.get(el_dat, ['nDat',filtParam1, filtParam2, 0, 'mean_n']));
+								}
+							})
 							.attr('cy', perc_scale(_.filter(line_dat, function(o){
 								return o['year'] == year;
 							})[0]['perc']))
@@ -2072,7 +2124,14 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 
 
 						this_scat.append('circle').classed('scat_inter', true)
-							.attr('r', radius(_.get(d, ['nDat',filtParam1, filtParam2, 0, 'mean_n'])))
+							.attr('r', function(){
+								if (d3.select('#circ_small_butt').attr('value')=='on') {
+									return abs_min_rad;
+								}
+								else {
+									return radius(_.get(d, ['nDat',filtParam1, filtParam2, 0, 'mean_n']));
+								}
+							})
 							.attr('cy', perc_scale(_.filter(interp_dat, function(o){
 								return o['year'] == year;
 							})[0]['perc']))
@@ -2471,6 +2530,9 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 				            d3.selectAll('.scat')
 				            	.transition('scat_opts_disp_rad').duration(400)
 				            	.attr('r', abs_min_rad)
+			            	d3.selectAll('.scat_inter')
+			            		.transition('scat_opts_disp_rad_inter').duration(400)
+			            		.attr('r', abs_min_rad)
 
 				    }
 

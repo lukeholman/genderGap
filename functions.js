@@ -129,6 +129,13 @@ function scatDispOptPos(){
         })
 }
 
+function aboutPos(){
+    d3.select('#about_cont')
+        .style('top', function(){
+            
+        })
+}
+
 function rePositioningScrollResize(){
     legendPos();
     yearSliderPos();
