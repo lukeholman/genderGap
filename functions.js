@@ -90,10 +90,16 @@ function initButtFiltLoc(){
 // Positioning functions
 
 function legendPos(){
-        $('.legend')
-            .css('position', 'fixed')
-            .css('left', $('.line_plot_yrText_right').offset()['left']+10)
-            .css('top', document.getElementById('perc_line_fifty').getBoundingClientRect()['top'] + 10)
+        // $('.legend')
+        //     .css('position', 'fixed')
+        //     .css('left', $('.line_plot_yrText_right').offset()['left']+10)
+        //     .css('top', document.getElementById('perc_line_fifty').getBoundingClientRect()['top'] + 10)
+
+
+        d3.select('.legend')
+            .style('position', 'fixed')
+            .style('left', d3.select('.line_plot_yrText_right').node().getBoundingClientRect()['left']+10)
+            .style('top', d3.select('#perc_line_fifty').node().getBoundingClientRect()['top'] + 10)
     }
 
 function yearSliderPos(){
@@ -158,7 +164,7 @@ function toggleButt(state, ret_value){
             return 'on';
         }
         else if (ret_value=='background'){
-            return '#769cb4'
+            return 'rgb(143, 188, 216)'
         }
     }
     else {

@@ -231,7 +231,11 @@
 
 		visibility: hidden;
 
-		padding: 60px;
+		padding-top: 60px;
+
+	}
+
+	.about_close {
 
 	}
 
@@ -284,7 +288,7 @@
 */	}
 
 	.active_butt {
-		background-color: #769cb4
+		background-color: rgb(143, 188, 216)
 	}
 
 	.cont_cat {
@@ -307,8 +311,12 @@
 		padding: 2;
 		margin-top: 4;
 		cursor: pointer;
-
 	}
+
+	.search_reset_butt {
+		border-color: rgb(245, 163, 0);
+/*		background-color: rgb(247, 221, 190)
+*/	}
 
 	.filt_reset_butt_one:hover {
 		background-color: #EEEEEE;

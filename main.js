@@ -64,14 +64,18 @@ d3.select('#header_about')
 					return (parseInt(header.style('height')))+'px';
 				})
 
-			this_butt.attr('value', 'open');
+			this_butt
+				.attr('value', 'open')
+				.text('close');
 		}
 
 		else {
 			d3.select('.about_cont')
 				.style('visibility', 'hidden')
 
-			this_butt.attr('value', 'closed')
+			this_butt
+				.attr('value', 'closed')
+				.text('about')
 		}
 
 	})
