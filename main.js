@@ -312,7 +312,7 @@ g_bckg.insert('text', 'svg')
 	.attr('text-anchor', 'start');
 
 g_bckg.insert('text', 'svg')
-	.text('75% Male')
+	.text('75% Men')
 	.attr('y', perc_scale(25))
 	// .attr('x',)
 	.attr('dy', '-0.5em')
@@ -324,7 +324,7 @@ g_bckg.insert('text', 'svg')
 	.attr('text-anchor', 'start');
 
 g_bckg.insert('text', 'svg')
-	.text('75% Female')
+	.text('75% Women')
 	.attr('y', perc_scale(75))
 	// .attr('x',)
 	.attr('dy', '-0.5em')
