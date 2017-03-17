@@ -28,15 +28,17 @@
 
 		<br>
 		<h2>This Visualisation</h2>
-		This visualisation allows one to view the past, present, and (estimated) future gender ratio of authors on academic publications listed on <a href="https://www.ncbi.nlm.nih.gov/pubmed?cmd=search">PubMed</a>. The four buttons at the top allow subsetting of the data by journal, research discipline, the author's country of affiliation, and authorship position. 
+		This visualisation allows one to view the past, present, and (estimated) future gender ratio of authors on academic publications listed on <a href="https://www.ncbi.nlm.nih.gov/pubmed?cmd=search">PubMed</a>. The four buttons at the top allow subsetting of the data by journal, research discipline, the author's country of affiliation, and authorship position. <br />
 		
-		The plot in the lower left shows the estimated gender ratio for each subset of the data (e.g. a set of scientific disciplines) in a particular year, which can be controlled by the slider. The gender ratio was estimated by fitting a curve to the data, as described in the accompanying paper. One can inspect this curve, giving a sense of how the gender ratio is changing, by	clicking on a data point in the left plot. This opens up a new plot in the lower right, showing the estimated gender ratio across the years 2002-2045. 
+		The lefthand plot shows the estimated author gender ratio for each subset of the data (e.g. a journal, or a scientific discipline) in a certain year. The year can be controlled via the slider. The gender ratio was estimated by fitting a curve to the data, as described in the accompanying paper. <br />
 		
-		Hoving the mouse cursor over a data point tells you which data that point relates to, and gives the sample size in terms of the number of men and women authors, and the number of papers. 
+		Clicking on a data point in the left plot shows our best guess of the past, present, and future gender ratio (the line), as well as the author gender ratio and its 95% confidence limits. <br />
+		
+		Hoving the mouse cursor over a data point tells you the sample size in terms of the number of men and women authors, and the number of papers. 
 
 		<h2>The Data</h2>
 		
-		The data were collected by downloading all the ~27 million records on PubMed, and attempting to identify the gender of the authors by matching their given names against the <a href="https://genderize.io/">genderize.io</a> database. We assigned each of the journals on PubMed to a research discipline, using PubMed's own categories where possible, and tried to identify the country in which each author was based based on the address they provided. For clarity, the data accessible through this web app are limited to combinations for which we had a sufficiently large sample size in terms of the number of papers (at least 100), years (at least 5), and authors (at least 50 per year for 5 or more years).
+		The data were collected by downloading all the ~27 million records on PubMed, and attempting to identify the gender of the authors by matching their given names against the <a href="https://genderize.io/">genderize.io</a> database. We assigned each of the journals on PubMed to a research discipline, using PubMed's own categories where possible, and tried to identify the country in which each author was based based on the address they provided. For clarity, the data accessible through this web app are limited to combinations for which we had a sufficiently large sample size in terms of the number of papers (at least 100), years (at least 5), and authors (at least 50 per year for 5 or more years). <br />
 		
 		The R code used to collect and analyse the PubMed data are archived ADD_URL_HERE. 
 		
