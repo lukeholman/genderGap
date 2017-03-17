@@ -266,7 +266,7 @@ function curv(c,r,t, dec){
 
     if (r<0 && c <0) {
         if (val>100) { val = 100;}
-        else if (val<0) {val = 0;}
+        else if (val<0) {val = 100;}
         }
 
 
