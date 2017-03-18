@@ -36,7 +36,7 @@ function initButtFiltLoc(){
 
     filt_one_loc
         .append('div').classed('filt_reset_butt_one', true)
-        .text('Reset to All')
+        .text('Reset')
 
     var filt_two_loc = d3.selectAll('.cont_cat')
         .filter(function(){
@@ -49,7 +49,7 @@ function initButtFiltLoc(){
 
     filt_two_loc
         .append('div').classed('filt_reset_butt_two', true)
-        .text('Reset to All')
+        .text('Reset')
 
 
     var search_loc = d3.selectAll('.cont_cat')
@@ -77,7 +77,7 @@ function initButtFiltLoc(){
 
         disc_loc
             .append('div').classed('disc_butt_reset', true)
-            .text('Reset to Multi')
+            .text('Reset')
 
 
     }
@@ -264,7 +264,7 @@ function curv(c,r,t, dec){
                     dec
                 )
 
-    if (r<0 && c <0) {
+    if (r<0 && c <0) {              // Handle the asymptotes that occasionally appear
         if (val>100) { val = 100;}
         else if (val<0) {val = 100;}
         }
