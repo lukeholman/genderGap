@@ -7,14 +7,13 @@
 
 // sizing of plot on different screens?
 
-// scat plot
-	// add CI option
-	// add circ rad option
+
 
 
 
 // Re-normalise radius scale on filter - done (simply call n_range(), which is filt dependent)
 	// Need radius legend too ... otherwise confusing what's going on.
+	// with new data set, n distribution is much narrower ... need to understand what the values represent, otherwise, will have re-jig the function cuz the bubbles are too cluttered.
 
 
 // Click to see deeper data (??)
@@ -451,7 +450,7 @@ var filtParam2 = filtParams[dispFiltKey[dispMode][1]]
 // ASYNC Data Function
 
 
-d3.json('data_no_list_no_dup_disc.json', function(main_data){
+d3.json('data_for_web_app_no_list.json', function(main_data){
 
 
 	d3.select('.loader_cont')
