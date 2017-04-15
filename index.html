@@ -26,15 +26,32 @@
 
 	<div class='about_text'>
 
-
-		Text to come soon ... Details about the visualisation, where the data came from, and credits as to who made it.
-
 		<br>
 		<h2>This Visualisation</h2>
+		
+		<p>This visualisation allows one to view the past, present, and (estimated) future gender ratio of authors on academic publications listed on <a href="https://www.ncbi.nlm.nih.gov/pubmed?cmd=search">PubMed</a>. The four buttons at the top allow subsetting of the data by journal, research discipline, the author's country of affiliation, and position in the author list (where 'overall' includes all authors).</p> 
+		
+		<p>The lefthand plot shows the estimated author gender ratio for each subset of the data (e.g. a journal, or a scientific discipline) in a certain year. The year can be controlled via the slider. The gender ratio was estimated by fitting a curve to the data, as described in the accompanying paper.</p>
+		
+		<p>Clicking on a data point in the left plot will bring up a curve showing our estimate of the past, present, and future gender ratio, as well as the author gender ratio and its 95% confidence limits (shown by the error bars, which can be toggled on or off).</p>
+		
+		<p>Hovering the mouse cursor over a data point shows the sample size in terms of the number of men and women authors, and the number of papers.</p>
 
 		<h2>The Data</h2>
+		
+		<p>The data were collected by downloading all the ~27 million records on <a href="https://www.ncbi.nlm.nih.gov/pubmed?cmd=search">PubMed</a>, and attempting to identify the gender of the authors by matching their given names against the <a href="https://genderize.io/">genderize.io</a> database. We assigned each of the journals on PubMed to a research discipline, using PubMed's own categorisation scheme where possible, and tried to identify the country in which each author was based from the address they provided. For clarity, the data accessible through this web app are limited to combinations for which we had a sufficiently large sample size in terms of the number of papers (at least 100), years (at least 5), and authors (at least 50 per year for 5 or more years).</p> 
+		
+		<p>The R scripts used to collect and analyse the PubMed data are archived ADD_URL_HERE.</p>
+		
+		<h2>Associated publication</h2>
+		
+		<p>This visualisation accompanies an article published in ADD_CITATION_HERE.</p>
+		
+		<h2>Contacts</h2>
+		
+		The gender data were collected by <a href="https://sites.google.com/site/lukeholman/home">Luke Holman</a> from the <a href="http://biosciences.unimelb.edu.au/">School of BioSciences</a> at the University of Melbourne. This data visualisation was made by <a href="https://github.com/maegul">Errol Lloyd</a>. 
+		
 
-		<h2>People and Contacts</h2>
 		
 	</div>
 
@@ -71,7 +88,7 @@
 				</div>
 
 				<div class='cont_cat Position'>
-					<div value='P' class='disp_butt'>Auth Positions</div>
+					<div value='P' class='disp_butt'>Position in author list</div>
 
 				</div>
 
@@ -123,7 +140,7 @@
 
 	<div id='scat_disp_opts'>
 
-		<div id='CI_butt' value='on'>Conf Int</div>
+		<div id='CI_butt' value='on'>Error bars</div>
 		<div id='circ_small_butt' value='off'>Small Circles</div>
 
 	</div>
