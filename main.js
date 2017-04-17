@@ -1,8 +1,4 @@
 
-
-//
-// !! Some of the interpolated GR data is out of range? (beyond 100%)
-
 // Journals ... why no filt update without freezing?
 
 // sizing of plot on different screens?
