@@ -575,6 +575,46 @@ function uniqColsGen(uniq_hue){
 }
 
 
+// For initialising the scatter plot at page loading
+
+function init_scat_eg(){
+    var egs_discs = [
+        
+        'Biochemistry',
+        
+        'Psychology',
+        'Midwifery',
+        'Speech-Language Pathology',
+        'Orthopedics'
+    ];
+
+    var max_egs_index = egs_discs.length;
+    var egs_idx = 0;
+
+    var delay_time = 650;
+
+    function plot_scat(){
+
+        d3.selectAll('.pnt').filter(function(d){
+            return d.Discipline == egs_discs[egs_idx];
+            })
+            .each(function(d,i){
+                var click_func = d3.select(this).on('click');
+                click_func.apply(this, [d,i]);
+            })
+
+        egs_idx++;
+
+        if (egs_idx < max_egs_index) {
+            setTimeout(plot_scat, delay_time);
+        }
+    }
+
+    plot_scat();
+}
+
+
+
 // function getDatActive(dat){
 
 //     return _.filter(dat, function(o){

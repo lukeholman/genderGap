@@ -689,6 +689,9 @@ d3.json('data_for_web_app_no_list.json', function(main_data){
 	initFilters();
 	disp();
 
+	init_scat_eg() // initialises some curious scater plots for discipline mode
+
+
 	function disp(){ //in: dat, g_swarm, g_line; out: sim, pnt
 
 
