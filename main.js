@@ -543,8 +543,9 @@ d3.json('data_for_web_app_no_list.json', function(main_data){
 
 	console.log('main data')
 	console.log(main_data)
-	interpolate_years(main_data)
-	// console.log(main_data)
+
+	n_auth_gen(main_data); // adds tot_auth to each data element
+	interpolate_years(main_data) //
 
 
 
@@ -762,7 +763,7 @@ d3.json('data_for_web_app_no_list.json', function(main_data){
 
 						if(getPntDat(d, year, 'intp')==0){
 							return radius(
-								getPntDat(d, year, 'n')
+								getPntDat(d, year, 'tot_auth')
 									)
 								}
 						else {
@@ -810,7 +811,7 @@ d3.json('data_for_web_app_no_list.json', function(main_data){
 
 
 							return radius(
-								getPntDat(d, year, 'n')
+								getPntDat(d, year, 'tot_auth')
 									)
 								}
 						else {
@@ -1171,7 +1172,7 @@ d3.json('data_for_web_app_no_list.json', function(main_data){
 								return abs_min_rad;
 							}
 							else {
-								return radius(d['n'])
+								return radius(d['tot_auth'])
 							}
 						})
 						.attr('cx', function(d){
@@ -1795,7 +1796,7 @@ d3.json('data_for_web_app_no_list.json', function(main_data){
 								return abs_min_rad;
 							}
 							else {
-								return radius(d['n'])
+								return radius(d['tot_auth'])
 							}
 						})
 						.attr('cx', function(d){
@@ -1814,7 +1815,7 @@ d3.json('data_for_web_app_no_list.json', function(main_data){
 									return abs_min_rad;
 								}
 								else {
-									return radius(d['n'])
+									return radius(d['tot_auth'])
 								}
 							})
 							.attr('cx', function(d){
@@ -2301,7 +2302,7 @@ d3.json('data_for_web_app_no_list.json', function(main_data){
 						if (hasDat(d)) {
 							if(getPntDat(d, year, 'intp')==0){
 								return radius(
-									getPntDat(d, year, 'n')
+									getPntDat(d, year, 'tot_auth')
 										)
 									}
 							else {
@@ -2364,7 +2365,7 @@ d3.json('data_for_web_app_no_list.json', function(main_data){
 
 						if(getPntDat(d, year, 'intp')==0){
 							return radius(
-								getPntDat(d, year, 'n')
+								getPntDat(d, year, 'tot_auth')
 									)
 								}
 						else {
@@ -2412,7 +2413,7 @@ d3.json('data_for_web_app_no_list.json', function(main_data){
 
 							if(getPntDat(d, year, 'intp')==0){
 								return radius(
-									getPntDat(d, year, 'n')
+									getPntDat(d, year, 'tot_auth')
 										)
 									}
 							else {
