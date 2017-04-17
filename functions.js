@@ -593,6 +593,22 @@ function uniqColsGen(uniq_hue){
 //////
 
 
+function sort_opts_low_case(opts){
+
+    opts.sort(function(a, b){
+        var nameA=a.toLowerCase(), nameB=b.toLowerCase();
+        if (nameA < nameB) //sort string ascending
+            return -1;
+        if (nameA > nameB)
+            return 1;
+        return 0; //default return value (no sorting)
+    });
+
+    return opts;
+
+}
+
+
 
 function getJournDiscSelectDat(dat){
     return _.filter(dat, function(d){
@@ -636,6 +652,8 @@ function checkSelectedJournDisc(current){
 
 function getDatActive(dat, f1, f2){
 
+    // Return data points that have data for current set of filters
+
     return _.filter(dat, function(o){
         return _.has(o, ['nDat', f1, f2])
     });
@@ -648,6 +666,9 @@ function getDatActive(dat, f1, f2){
 }
 
 function getActiveFiltOneOpts(dat, all_uniq){
+
+    // return filt one options that provide data given current filt two
+
     return _.filter(all_uniq, function(au){
                 var optDat = getDatActive(dat, au, filtParam2);
                 return optDat.length > 0;
@@ -656,6 +677,9 @@ function getActiveFiltOneOpts(dat, all_uniq){
 }
 
 function getActiveFiltTwoOpts(dat, all_uniq){
+
+    // return filt two options that provide data given current filt one
+
     return _.filter(all_uniq, function(au){
                 var optDat = getDatActive(dat, filtParam1, au);
                 return optDat.length > 0;
@@ -665,6 +689,8 @@ function getActiveFiltTwoOpts(dat, all_uniq){
 
 
 function getFiltOneOpts(dat){
+
+    // Get all unique current filt one opts given current filts
 
     return _.uniq(
                 _.flatten(
@@ -678,6 +704,9 @@ function getFiltOneOpts(dat){
 
 
 function getFiltTwoOpts(dat){
+
+    // Get all unique current filt two opts given current filts
+
 
     return _.uniq(
                 _.flattenDeep(
@@ -726,6 +755,9 @@ function getActiveJournDiscOpts(dat, all_uniq){
 
 
 function getDispOpts(dat){
+
+    // Get all unique current display options given current filts
+
     return _.uniq(
                 _.map(
                     getDatActive(dat, filtParam1, filtParam2), 
