@@ -534,6 +534,9 @@ function tt_fill(d, tooltip, yr){
     tooltip.append('p').classed('tt_main', true)
             .text(d[getDispDat()]);
     tooltip.append('p').classed('tt_perc', true)
+            .text(yr)
+            .style('margin-bottom', '1em');    
+    tooltip.append('p').classed('tt_perc', true)
             .text((getPntDat(d, yr, 'GR'))+'\% Female');
 
 
@@ -542,10 +545,10 @@ function tt_fill(d, tooltip, yr){
         tooltip.append('p').classed('tt_n', true)
             .text(d3.format(',')(getPntDat(d, yr, 'n')) +' Papers');
         tooltip.append('p').classed('tt_nf', true)
-            .text(d3.format(',')(getPntDat(d, yr, 'F')) + ' Female')
+            .text(d3.format(',')(getPntDat(d, yr, 'F')) + ' Women')
             .style('color', col_scale(85));
         tooltip.append('p').classed('tt_nm', true)
-            .text(d3.format(',')(getPntDat(d, yr, 'M')) + ' Male')
+            .text(d3.format(',')(getPntDat(d, yr, 'M')) + ' Men')
             .style('color', col_scale(15));
 
 
