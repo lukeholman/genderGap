@@ -1,28 +1,22 @@
 
-
-//
-// !! Some of the interpolated GR data is out of range? (beyond 100%)
-
 // Journals ... why no filt update without freezing?
 
 // sizing of plot on different screens?
 
-// scat plot
-	// add CI option
-	// add circ rad option
+
 
 
 
 // Re-normalise radius scale on filter - done (simply call n_range(), which is filt dependent)
 	// Need radius legend too ... otherwise confusing what's going on.
+	// with new data set, n distribution is much narrower ... need to understand what the values represent, otherwise, will have re-jig the function cuz the bubbles are too cluttered.
 
 
 // Click to see deeper data (??)
 
-
-// Disp filters
-	// currently presume that for general filt settings, all dispopts will be available
-	// may not be true for  dataset - may need to have an all and an active function like for filts
+// swarm highlight border
+	// colors could be brighter to stand out more (change the hue parameters)
+	// doesn't persist in current journals work around
 
 
 
@@ -451,7 +445,7 @@ var filtParam2 = filtParams[dispFiltKey[dispMode][1]]
 // ASYNC Data Function
 
 
-d3.json('data_no_list_no_dup_disc.json', function(main_data){
+d3.json('data_for_web_app_no_list.json', function(main_data){
 
 
 	d3.select('.loader_cont')
@@ -544,8 +538,9 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 
 	console.log('main data')
 	console.log(main_data)
-	interpolate_years(main_data)
-	// console.log(main_data)
+
+	n_auth_gen(main_data); // adds tot_auth to each data element
+	interpolate_years(main_data) //
 
 
 
@@ -572,11 +567,10 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 
 		// Initialised the contents of the filters
 
-		all_uniq_disp_opts = getDispOpts(dat);
+		all_uniq_disp_opts = sort_opts_low_case(getDispOpts(dat));
 
-		all_uniq_filt_one = getFiltOneOpts(dat);
-		all_uniq_filt_two = getFiltTwoOpts(dat);
-
+		all_uniq_filt_one = sort_opts_low_case(getFiltOneOpts(dat));
+		all_uniq_filt_two = sort_opts_low_case(getFiltTwoOpts(dat));
 
 
 
@@ -695,6 +689,9 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 	initFilters();
 	disp();
 
+	init_scat_eg() // initialises some curious scater plots for discipline mode
+
+
 	function disp(){ //in: dat, g_swarm, g_line; out: sim, pnt
 
 
@@ -763,7 +760,7 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 
 						if(getPntDat(d, year, 'intp')==0){
 							return radius(
-								getPntDat(d, year, 'n')
+								getPntDat(d, year, 'tot_auth')
 									)
 								}
 						else {
@@ -811,7 +808,7 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 
 
 							return radius(
-								getPntDat(d, year, 'n')
+								getPntDat(d, year, 'tot_auth')
 									)
 								}
 						else {
@@ -1172,7 +1169,7 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 								return abs_min_rad;
 							}
 							else {
-								return radius(d['n'])
+								return radius(d['tot_auth'])
 							}
 						})
 						.attr('cx', function(d){
@@ -1467,10 +1464,10 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 
 			// Logic - filters primed for diaplaying ... so run in disp!!
 
-			all_uniq_disp_opts = getDispOpts(dat);
+			all_uniq_disp_opts = sort_opts_low_case(getDispOpts(dat));
 
-			all_uniq_filt_one = getFiltOneOpts(dat);
-			all_uniq_filt_two = getFiltTwoOpts(dat);
+			all_uniq_filt_one = sort_opts_low_case(getFiltOneOpts(dat));
+			all_uniq_filt_two = sort_opts_low_case(getFiltTwoOpts(dat));
 
 
 
@@ -1646,7 +1643,7 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 
 			if (dispMode == 'J') {
 
-				all_uniq_disc_opts = getJournDiscOpts(journ_unfilt_dat);
+				all_uniq_disc_opts = sort_opts_low_case(getJournDiscOpts(journ_unfilt_dat));
 				var active_disc_opts = getActiveJournDiscOpts(dat, all_uniq_disc_opts);
 
 				$('.disc_filt').select2('destroy').empty().off()
@@ -1796,7 +1793,7 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 								return abs_min_rad;
 							}
 							else {
-								return radius(d['n'])
+								return radius(d['tot_auth'])
 							}
 						})
 						.attr('cx', function(d){
@@ -1815,7 +1812,7 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 									return abs_min_rad;
 								}
 								else {
-									return radius(d['n'])
+									return radius(d['tot_auth'])
 								}
 							})
 							.attr('cx', function(d){
@@ -2302,7 +2299,7 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 						if (hasDat(d)) {
 							if(getPntDat(d, year, 'intp')==0){
 								return radius(
-									getPntDat(d, year, 'n')
+									getPntDat(d, year, 'tot_auth')
 										)
 									}
 							else {
@@ -2365,7 +2362,7 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 
 						if(getPntDat(d, year, 'intp')==0){
 							return radius(
-								getPntDat(d, year, 'n')
+								getPntDat(d, year, 'tot_auth')
 									)
 								}
 						else {
@@ -2413,7 +2410,7 @@ d3.json('data_no_list_no_dup_disc.json', function(main_data){
 
 							if(getPntDat(d, year, 'intp')==0){
 								return radius(
-									getPntDat(d, year, 'n')
+									getPntDat(d, year, 'tot_auth')
 										)
 									}
 							else {
