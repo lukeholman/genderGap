@@ -1183,6 +1183,7 @@ d3.json('data_for_web_app_no_list.json', function(main_data){
 					.merge(scat)
 						.on('mouseover', function(d){
 
+
 							d3.select(this.parentNode).raise();
 
 							swarmAtt = d3.select(this).attr('data-swarmDisp'); //dispDat
@@ -1199,7 +1200,8 @@ d3.json('data_for_web_app_no_list.json', function(main_data){
 
 							tt_fill(
 								swarm_point.datum(),
-								tooltip
+								tooltip,
+								d['Y']
 								);
 
 							g_line.selectAll('.scat_plot')
@@ -1321,14 +1323,15 @@ d3.json('data_for_web_app_no_list.json', function(main_data){
 								.filter(function(od){return od[getDispDat()]!=swarmAtt}) //dispDat
 								.style('opacity', '0.2');						
 
-							tt_fill(
-								swarm_point.datum(),
-								tooltip
-								);
+							// tool tip unnecessary if it is year specific for each scatter point
+							// tt_fill(
+							// 	swarm_point.datum(),
+							// 	tooltip
+							// 	);
 
-					        tooltip
-				                .style('top', (d3.event.pageY-150)+'px')
-				                .style('left', (d3.event.pageX+5)+'px');
+					  //       tooltip
+				   //              .style('top', (d3.event.pageY-150)+'px')
+				   //              .style('left', (d3.event.pageX+5)+'px');
 
 							d3.selectAll('.legend_item')
 								.style('opacity', 0.3);
@@ -1358,8 +1361,8 @@ d3.json('data_for_web_app_no_list.json', function(main_data){
 								.filter(function(od){return od[getDispDat()]!=swarmAtt}) //dispDat
 								.style('opacity', '');							
 
-							tooltip.style('visibility', 'hidden');
-							tooltip.selectAll('*').remove();
+							// tooltip.style('visibility', 'hidden');
+							// tooltip.selectAll('*').remove();
 
 
 							d3.selectAll('.legend_item')

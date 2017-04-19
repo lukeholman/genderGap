@@ -522,24 +522,30 @@ function getPntDat(dat, year, att){
 
 }
 
-function tt_fill(d, tooltip){
+function tt_fill(d, tooltip, yr){
+
+    // allows a specific year to be specified for
+    // tooltip generation
+    if (yr == undefined) {
+        yr = year;
+    };
 
     tooltip.style('visibility', 'visible');
     tooltip.append('p').classed('tt_main', true)
             .text(d[getDispDat()]);
     tooltip.append('p').classed('tt_perc', true)
-            .text((getPntDat(d, year, 'GR'))+'\% Female');
+            .text((getPntDat(d, yr, 'GR'))+'\% Female');
 
 
-    if (getPntDat(d, year, 'intp') == 0) {
+    if (getPntDat(d, yr, 'intp') == 0) {
 
         tooltip.append('p').classed('tt_n', true)
-            .text(d3.format(',')(getPntDat(d, year, 'n')) +' Papers');
+            .text(d3.format(',')(getPntDat(d, yr, 'n')) +' Papers');
         tooltip.append('p').classed('tt_nf', true)
-            .text(d3.format(',')(getPntDat(d, year, 'F')) + ' Female')
+            .text(d3.format(',')(getPntDat(d, yr, 'F')) + ' Female')
             .style('color', col_scale(85));
         tooltip.append('p').classed('tt_nm', true)
-            .text(d3.format(',')(getPntDat(d, year, 'M')) + ' Male')
+            .text(d3.format(',')(getPntDat(d, yr, 'M')) + ' Male')
             .style('color', col_scale(15));
 
 
